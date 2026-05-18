@@ -5,8 +5,8 @@
 The Kairos Web Portal is the internal control plane: platform health,
 moderation load, trust signals, user/role management, companies and an
 append-only audit trail. Not public — every surface requires a `moderator+`
-session. The student-facing product lives in the separate **Kairos — App**
-project.
+session. The community app for newcomers lives in the separate
+**Kairos — App** project.
 
 > Internal operations tool. Robots are disallowed; no public landing.
 
