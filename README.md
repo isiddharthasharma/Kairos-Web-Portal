@@ -50,14 +50,15 @@ RBAC. Real auth always overrides demo when wired.
 
 ```bash
 npm install
-# .env.local ships with placeholders — fill the Supabase keys
+# create .env.local and fill the Supabase keys
 npm run dev                     # http://localhost:3000
 ```
 
 Supabase wiring, optional integrations (PostHog) and the security model are
-unchanged from the shared codebase — see the schema/policies in
-`supabase/migrations/`. The Stripe billing surface is **not** part of the
-portal; it ships with Kairos — App.
+unchanged from the shared codebase. **Database schema, RLS policies and seed
+SQL are intentionally not shipped in this repo** — provision them separately
+(migrations first, then seed). The Stripe billing surface is **not** part of
+the portal; it ships with Kairos — App.
 
 ## Scripts
 
@@ -79,14 +80,14 @@ src/
     (moderator)/   moderator control system (RBAC: moderator)
   components/      ui/ (primitives), shell/, admin/, trust/ (badge), brand/
   lib/             auth/ (rbac, guard, session, actions), supabase/, data/ (queries, mod-actions, seed), nav, types
-supabase/
-  migrations/      0001_schema.sql, 0002_rls.sql
-  seed.sql
 ```
+
+> Database schema, RLS policies and seed SQL are **not** included in this
+> repository.
 
 ## Security model
 
-- **RLS everywhere** — every table has policies (`supabase/migrations/0002_rls.sql`).
+- **RLS everywhere** — every table has policies (SQL not shipped in repo).
 - **RBAC** — `user` → `premium_user` → `moderator` → `admin` → `super_admin`;
   capability matrix in `src/lib/auth/rbac.ts`; route guards in
   `src/lib/auth/guard.ts`; middleware session refresh + protected routing.
